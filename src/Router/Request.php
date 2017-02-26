@@ -3,9 +3,11 @@
 class Request
 {
 	protected $data = null;
+	protected $route = null;
 
-	public function __construct($data = null)
+	public function __construct(Route $route, $data = null)
 	{
+		$this->route = $route;
 		$this->data = $data;
 	}
 

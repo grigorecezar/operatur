@@ -18,12 +18,7 @@ class ConfigTest extends PHPUnit_Framework_TestCase
 
     	$input = [
 			'worker' => 'daily-activity-emails',
-			'process' => 'slave',
-			'data' => [
-				'userIds' => [
-					1, 2, 3, 4, 5, 6, 7, 8, 9, 10
-				]
-			]
+			'process' => 'slave'
 		];
 
 		$loader = (new Loader($routes, $config, $input))->load();

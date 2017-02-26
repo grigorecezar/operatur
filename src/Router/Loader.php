@@ -1,60 +1,69 @@
 <?php namespace IndexIO\Operatur\Router;
 
 use IndexIO\Operatur\Queue\Queue;
+use IndexIO\Operatur\Config;
+use IndexIO\IlluminateQueueAzure\Connectors\AzureConnector;
+use Illuminate\Queue\Capsule\Manager as IlluminateQueueManager;
 use Exception;
 
 class Loader
 {
 	protected $routes = [];
-	protected $config = [];
-	protected $input = [];
+	protected $config = null;
+	protected $routeToAccess = null;
+	protected $request = null;
+
+	protected $queue = null;
 
 	public function __construct(array $routes, array $config, array $input)
 	{
-		$this->routes = $routes;
-		$this->config = $config;
-		$this->input = $input;
-	}
-
-	public function load()
-	{
-		$routes = $this->routes;
-		$config = $this->config;
-		$input = $this->input;
-
 		$this->sanityCheckRoutes($routes);
 		$this->sanityCheckConfig($config);
 		$this->sanityCheckInput($input);
 
 		$route = new Route($input['worker'], $input['process']);
+		$config = new Config($config);
 		if(isset($input['data'])) {
-			$request = new Request($input['data']);
+			$request = new Request($route, $input['data']);
 		} else {
-			$request = new Request();
+			$request = new Request($route);
 		}
-		
 
-		$instance = $this->routeInstance($routes, $route);
+		$this->routes = $routes;
+		$this->config = $config;
+		$this->request = $request;
+		$this->routeToAccess = $route;
+
+		$this->configureQueue();
+	}
+
+	public function load()
+	{
+		$instance = $this->routeInstance($this->routes, $this->routeToAccess);
 		if (!isset($instance)) {
 			throw new WrongRoute();
 		}
 
+		if($this->request->getData() === null) {
+			$message = $this->queue->peak($instance::QUEUE_NAME);
+			dd($message);
+		}
+
 		try {
-			$process = $route->getProcess();
-			$instance->$process($request);
+			$process = $this->routeToAccess->getProcess();
+			$instance->$process($this->request);
 		} catch (Exception $e) {
 			// TODO: handle this better - log it into a monitoring system
 			throw $e;
 		}
 	}
 
-	public function routeInstance($routes, Route $route)
+	protected function routeInstance($routes, Route $route)
 	{
 		foreach ($routes as $namespace) {
 			if (class_exists($namespace)) {
 				if ($namespace::NAME === $route->getName()) {
-					$queue = new Queue();
-					return new $namespace($queue);
+					return new $namespace($this->queue);
 				}
 			}
 		}
@@ -66,7 +75,7 @@ class Loader
 	 * TODO: check if the routes defined have classes that contain all
 	 * the necessary information about the worker defined
 	 */
-	public function sanityCheckRoutes($routes)
+	protected function sanityCheckRoutes($routes)
 	{
 
 	}
@@ -74,7 +83,7 @@ class Loader
 	/**
 	 * TODO
 	 */
-	public function sanityCheckConfig($config)
+	protected function sanityCheckConfig($config)
 	{
 
 	}
@@ -82,9 +91,23 @@ class Loader
 	/**
 	 * TODO: validates data input, eg. 'process' needs to exist
 	 */
-	public function sanityCheckInput($routes)
+	protected function sanityCheckInput($routes)
 	{
 
+	}
+
+	protected function configureQueue()
+	{
+		$config = $this->config;
+
+		$queue = new Queue($config);
+		$queue->addConnector('azure', function() use($config) {
+			return new AzureConnector($config->toArray());
+		});
+
+		$queue->addConnection($config->getConnection());
+
+		$this->queue = $queue;
 	}
 
 }

@@ -9,7 +9,7 @@ class SendDailyEmail extends Worker
    use MasterSlave;
 
    const NAME = 'daily-activity-emails';
-   const QUEUE_NAME = 'daily-emails';
+   const QUEUE_NAME = '/daily-emails';
    /* public $scheduler = [
         [
             'process' => 'master',
