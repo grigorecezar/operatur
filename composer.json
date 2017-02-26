@@ -1,0 +1,66 @@
+{
+    "name": "index-io/operatur",
+    "type": "project",
+    "description": "",
+    "keywords": [
+        "index",
+        "azure functions",
+        "aws lambda",
+        "iron-io workers"
+    ],
+    "homepage": "https://github.com/grigorecezar/operatur",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Cezar Grigore",
+            "email": "cezar@index.io",
+            "homepage": "https://github.com/grigorecezar",
+            "role": "Developer"
+        },
+        {
+            "name": "Liviu Nasoi",
+            "email": "liviu@index.io",
+            "homepage": "https://github.com/Liviun92",
+            "role": "Developer"
+        },
+        {
+            "name": "Tom Jenkins",
+            "email": "tom@index.io",
+            "homepage": "https://github.com/tomtwo",
+            "role": "Developer"
+        }
+    ],
+    "repositories": [
+        {
+            "type": "git",
+            "url": "https://github.com/index-io/illuminate-queue-azure"
+        }
+    ],
+    "require": {
+        "php" : ">=7.0.0",
+        "larapack/dd": "1.*",
+        "nesbot/carbon": "1.21.0",
+        "illuminate/support": "5.*",
+        "illuminate/config": "5.*",
+        "illuminate/queue": "5.*",
+        "josegonzalez/dotenv": "3.0.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit" : "4.*"
+    },
+    "autoload": {
+        "psr-4": {
+            "IndexIO\\Operatur\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "IndexIO\\Operatur\\Test\\": "tests"
+        }
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "1.0-dev"
+        }
+    }
+}
