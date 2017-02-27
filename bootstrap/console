@@ -12,8 +12,10 @@ set_time_limit(0);
 
 // import the Symfony Console Application 
 use Symfony\Component\Console\Application;
+use IndexIO\Operatur\ConsoleCommands\GenerateSkeleton;
 use IndexIO\Operatur\ConsoleCommands\GenerateFunctions;
 
 $app = new Application();
 $app->add(new GenerateFunctions());
+$app->add(new GenerateSkeleton());
 $app->run();

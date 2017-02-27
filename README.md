@@ -13,6 +13,21 @@ To use, create a 'Workers' folder in your application src. Look into tests\App f
 composer require index-io/operatur
 ```
 
+## To run
+
+Generate skeleton structure, the -p argument is the folder name of where your app sits, default is 'app' but any custom one can be used
+``` bash
+vendor/bin/console operatur:skeleton -p app
+```
+
+This command will generate the folders and files necessary for the functions you just wrote that can then be deployed through git or other mechanisms.
+
+``` bash
+vendor/bin/console operatur:generate-functions -p azure
+```
+
+
+
 ## Testing
 
 ``` bash
