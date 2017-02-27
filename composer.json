@@ -58,6 +58,9 @@
     "autoload-dev": {
         "psr-4": {
             "IndexIO\\Operatur\\Test\\": "tests"
+        },
+        "psr-0": { 
+            "": "sample/" 
         }
     },
     "extra": {

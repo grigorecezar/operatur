@@ -24,25 +24,27 @@ class GenerateSkeleton extends Command
 
 	protected function execute(InputInterface $input, OutputInterface $output)
 	{
+		$output->writeln('');
 		$path = $input->getOption('app-folder-name');
 		
-		$globablPath = __DIR__ . '/../../' . $path;
-		if (!file_exists($globablPath)) {
-			$globablPath = __DIR__ . '/../../../../../' . $path;
-			if (!file_exists($globablPath)) {
+		$globalPath = __DIR__ . '/../../' . $path;
+		if (!file_exists($globalPath)) {
+			$globalPath = __DIR__ . '/../../../../../' . $path;
+			if (!file_exists($globalPath)) {
 				throw new InvalidArgumentException('The folder provided does not exist.');
 			}
 		}
 
-		$this->createWorkersFolder($globablPath);
+		$this->createWorkersFolder($globalPath);
 		$output->writeln('Workers folder created.');
 
-		$config = $this->createConfigFile($globablPath);
-		$routes = $this->createRoutesFile($globablPath);
+		$config = $this->createConfigFile($globalPath);
+		$routes = $this->createRoutesFile($globalPath);
 		$output->writeln('Config and routes files created.');
 
-		$this->createSampleWorkersFiles($globablPath, $routes);
+		$this->createSampleWorkersFiles($globalPath, $routes);
 		$output->writeln('Sample workers created. Do not forget to change the namespace of the sample workers and also update the routes.');
+		$output->writeln('');
 	}
 
 	public function createWorkersFolder($path)

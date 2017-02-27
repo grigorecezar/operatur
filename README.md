@@ -20,12 +20,16 @@ Generate skeleton structure, the -p argument is the folder name of where your ap
 vendor/bin/console operatur:skeleton -p app
 ```
 
-This command will generate the folders and files necessary for the functions you just wrote that can then be deployed through git or other mechanisms.
+This command will generate the folders and files necessary for the functions you just wrote that can then be deployed through git or other mechanisms. If config or routes paths are not provided then it will use the default ones located at /app/Workers/config.php and /app/Workers/routes.php
 
 ``` bash
-vendor/bin/console operatur:generate-functions -p azure
+vendor/bin/console operatur:functions -c sample/config.php  -r sample/routes.php -p azure-functions
 ```
 
+To remove the generated folders / files use the 'remove' argument:
+``` bash
+vendor/bin/console operatur:functions remove -c sample/config.php  -r sample/routes.php -p azure-functions
+```
 
 
 ## Testing

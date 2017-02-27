@@ -5,4 +5,13 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 class Command extends SymfonyCommand
 {
+	protected function getConfig($path)
+	{
+
+	}
+
+	protected function getRoutes($path)
+	{
+
+	}
 }

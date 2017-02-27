@@ -1,4 +1,4 @@
-<?php namespace IndexIO\Operatur\Workers;
+<?php
 
 use IndexIO\Operatur\Worker\Worker;
 use IndexIO\Operatur\ProcessType\RunOnTrigger;
