@@ -7,7 +7,8 @@ set_time_limit(0);
 // date_default_timezone_set('America/Los_Angeles'); 
 
 // include the composer autoloader
-require_once __DIR__ . '/../vendor/autoload.php'; 
+(@include_once __DIR__ . '/../vendor/autoload.php') || @include_once __DIR__ . '/../../../autoload.php';
+// require_once __DIR__ . '/../vendor/autoload.php'; 
 
 // import the Symfony Console Application 
 use Symfony\Component\Console\Application;
