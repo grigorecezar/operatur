@@ -35,13 +35,15 @@ class GenerateSkeleton extends Command
 			}
 		}
 
-		$output->writeln('exists');
 		$this->createWorkersFolder($globablPath);
-		
+		$output->writeln('Workers folder created.');
+
 		$config = $this->createConfigFile($globablPath);
 		$routes = $this->createRoutesFile($globablPath);
+		$output->writeln('Config and routes files created.');
 
 		$this->createSampleWorkersFiles($globablPath, $routes);
+		$output->writeln('Sample workers created. Do not forget to change the namespace of the sample workers and also update the routes.');
 	}
 
 	public function createWorkersFolder($path)
@@ -56,6 +58,10 @@ class GenerateSkeleton extends Command
 	{
 		$configFile = $path . '/Workers/config.php';
 		list($rawData, $arrayData) = $this->getConfigFileSample();
+
+		if (file_exists($configFile)) {
+			return require_once $configFile;
+		}
 
 		try {
 			$handle = fopen($configFile, 'w');
@@ -90,6 +96,10 @@ class GenerateSkeleton extends Command
 	{
 		$routesFile = $path . '/Workers/routes.php';
 		list($rawData, $arrayData) = $this->getRoutesFileSample();
+
+		if (file_exists($routesFile)) {
+			return require_once $routesFile;
+		}
 
 		try {
 			$handle = fopen($routesFile, 'w');
@@ -129,6 +139,10 @@ class GenerateSkeleton extends Command
 			$data = $worker['data'];
 
 			$workerFile = $path . '/Workers/' . $name . '.php';
+
+			if (file_exists($workerFile)) {
+				return ;
+			}
 
 			try {
 				$handle = fopen($workerFile, 'w');
