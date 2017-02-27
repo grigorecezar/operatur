@@ -44,7 +44,8 @@
         "illuminate/config": "5.*",
         "illuminate/queue": "5.*",
         "josegonzalez/dotenv": "3.0.0",
-        "index-io/illuminate-queue-azure": "1.1"
+        "index-io/illuminate-queue-azure": "1.1",
+        "symfony/console": "^3.2"
     },
     "require-dev": {
         "phpunit/phpunit" : "4.*"
