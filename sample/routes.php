@@ -1,5 +1,5 @@
 <?php
 
 return [
-	SendWelcomeEmail::class
+	SendDailyUpdatesEmail::class
 ];
