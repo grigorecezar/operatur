@@ -27,6 +27,7 @@ Go to "D:\Program Files (x86)\PHP>", copy all contents from v7.0 to the path "D:
 ``` bash
 cd D:\home\site\tools
 cp -r "D:\Program Files\PHP\v7.0\." .
+cp -r “D:\Program Files (x86)\PHP\v7.0\.“ .
 ```
 
 # Install certificate for SSL (curl)
@@ -40,6 +41,7 @@ On the Kudu console go to D:\home\site\wwwroot\bin (bin folder might have to be 
 ``` bash
 cd D:\home\site\wwwroot
 mkdir bin
+cd bin
 php -r "readfile('https://getcomposer.org/installer');" | php
 ```
 
@@ -63,6 +65,11 @@ D:\home\site\tools\php.exe bin\composer.phar install
 
 Reference: [Run composer on Kudu](https://sunithamk.wordpress.com/2014/06/18/run-composer-on-kudu-azure-websites/).
 
+# Git hooks
+``` bash
+D:\home\site\tools\php.exe bin\composer.phar install
+D:\home\site\tools\php.exe bin\composer.phar dumpautoload
+```
 
 
 ## To run
