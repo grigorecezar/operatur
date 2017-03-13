@@ -37,7 +37,11 @@ class Queue extends IlluminateQueueManager implements QueueContract
 				break;
 
 			default:
-				$data = json_encode($worker->getRequest()->getData());
+				$data = [
+					'worker' => $worker::NAME,
+					'data' => $worker->getRequest()->getData()
+				];
+				$data = json_encode($data);
 				$this->pushRaw(base64_encode($data), '/' . $worker::NAME);
 		}
 	}
