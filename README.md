@@ -7,6 +7,8 @@ docker, azure functions, iron.io workers, aws lambda.
 
 To use, create a 'Workers' folder in your application src. Look into tests\App for usage.
 
+[Background jobs best practices](https://docs.microsoft.com/en-us/azure/architecture/best-practices/background-jobs)
+
 ## Install
 
 ``` bash
