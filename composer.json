@@ -44,7 +44,7 @@
         "illuminate/config": "5.*",
         "illuminate/queue": "5.*",
         "josegonzalez/dotenv": "3.0.0",
-        "index-io/illuminate-queue-azure": "1.4",
+        "index-io/illuminate-queue-azure": "1.5",
         "symfony/console": "^3.2"
     },
     "require-dev": {
