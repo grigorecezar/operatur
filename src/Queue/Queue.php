@@ -23,13 +23,13 @@ class Queue extends IlluminateQueueManager implements QueueContract
         $this->config = $config;
     }
 
-	public function run(WorkerContract $worker, Request $request, $process)
+	public function run(WorkerContract $worker, Request $request)
 	{
 		// TODO: this should push to queue
 		// when 'sync' driver enabled, runs continously
 		switch($this->config->getDriver()) {
 			case 'sync':
-				$worker->$process($request);
+				$worker->handle($request);
 				break;
 
 			default:

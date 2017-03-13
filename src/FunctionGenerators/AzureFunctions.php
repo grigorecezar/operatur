@@ -7,6 +7,7 @@ use IndexIO\Operatur\Worker\Types as WorkerTypes;
 /**
  *
  * For scheduled function check https://docs.microsoft.com/en-us/azure/azure-functions/functions-bindings-timer
+ * For more info about function.json bindings https://github.com/Azure/azure-webjobs-sdk-script/wiki/function.json
  */
 class AzureFunctions extends AbstractGenerator
 {
