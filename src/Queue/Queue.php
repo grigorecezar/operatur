@@ -6,6 +6,7 @@ use IndexIO\Operatur\Config;
 use IndexIO\Operatur\Router\Request;
 use Illuminate\Queue\Capsule\Manager as IlluminateQueueManager;
 use Illuminate\Container\Container;
+use IndexIO\IlluminateQueueAzure\Connectors\AzureConnector;
 
 class Queue extends IlluminateQueueManager implements QueueContract 
 {
@@ -22,6 +23,8 @@ class Queue extends IlluminateQueueManager implements QueueContract
     {
         parent::__construct($container);
         $this->config = $config;
+
+        $this->configureQueue();
     }
 
 	public function run(WorkerContract $worker)
@@ -37,5 +40,15 @@ class Queue extends IlluminateQueueManager implements QueueContract
 				$data = json_encode($worker->getRequest()->getData());
 				$this->pushRaw($data, '/' . $worker::NAME);
 		}
+	}
+
+	protected function configureQueue()
+	{
+		$config = $this->config;
+		$this->addConnector('azure', function() use($config) {
+			return new AzureConnector($config->toArray());
+		});
+
+		$this->addConnection($config->getConnection());
 	}
 }
