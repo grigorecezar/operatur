@@ -35,7 +35,7 @@ class Queue extends IlluminateQueueManager implements QueueContract
 
 			default:
 				$data = json_encode($worker->getRequest->getData());
-				$this->pushRaw($data, '/' . $worker::QUEUE_NAME);
+				$this->pushRaw($data, '/' . $worker::NAME);
 		}
 	}
 }

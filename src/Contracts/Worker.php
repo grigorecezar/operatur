@@ -4,5 +4,5 @@ use IndexIO\Operatur\Router\Request;
 
 interface Worker
 {
-	public function handle(Request $request);
+	public function handle();
 }

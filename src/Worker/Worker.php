@@ -3,16 +3,19 @@
 use IndexIO\Operatur\Contracts\Queue as QueueContract;
 use IndexIO\Operatur\Contracts\Worker as WorkerContract;
 use IndexIO\Operatur\Router\Request;
+use IndexIO\Operatur\Router\Route;
 
 class Worker implements WorkerContract
 {
 	protected $request = null;
 	protected $queue = null;
 
-	public function __construct(Request $request, QueueContract $queue)
+	public function __construct(array $data)
 	{
-		$this->request = $request;
-		$this->queue = $queue;
+		$this->request = new Request(
+			new Route(static::NAME, 'handle')
+			$data
+		);
 	}
 
 	public function setRequest(Request $request)
