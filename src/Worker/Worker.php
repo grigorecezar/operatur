@@ -5,7 +5,7 @@ use IndexIO\Operatur\Contracts\Worker as WorkerContract;
 use IndexIO\Operatur\Router\Request;
 use IndexIO\Operatur\Router\Route;
 
-class Worker implements WorkerContract
+abstract class Worker implements WorkerContract
 {
 	protected $request = null;
 	protected $queue = null;
@@ -13,10 +13,12 @@ class Worker implements WorkerContract
 	public function __construct(array $data)
 	{
 		$this->request = new Request(
-			new Route(static::NAME, 'handle')
+			new Route(static::NAME, 'handle'),
 			$data
 		);
 	}
+
+	abstract public function handle();
 
 	public function setRequest(Request $request)
 	{
