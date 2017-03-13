@@ -14,6 +14,7 @@ class Queue extends IlluminateQueueManager implements QueueContract
 	/**
      * Create a new queue capsule manager.
      *
+     * @param \IndexIO\Operatur\Config $config
      * @param  \Illuminate\Container\Container  $container
      * @return void
      */
@@ -23,7 +24,7 @@ class Queue extends IlluminateQueueManager implements QueueContract
         $this->config = $config;
     }
 
-	public function run(WorkerContract $worker, Request $request)
+	public function run(WorkerContract $worker)
 	{
 		// TODO: this should push to queue
 		// when 'sync' driver enabled, runs continously
@@ -33,9 +34,8 @@ class Queue extends IlluminateQueueManager implements QueueContract
 				break;
 
 			default:
-				$data = json_encode($request->getData());
+				$data = json_encode($worker->getRequest->getData());
 				$this->pushRaw($data, '/' . $worker::QUEUE_NAME);
 		}
-		
 	}
 }

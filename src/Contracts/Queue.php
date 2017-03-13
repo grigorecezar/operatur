@@ -6,5 +6,5 @@ use Illuminate\Contracts\Queue\Queue as IlluminateQueue;
 
 interface Queue
 {
-	public function run(WorkerContract $worker, Request $request, $process);
+	public function run(WorkerContract $worker);
 }
