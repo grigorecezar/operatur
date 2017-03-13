@@ -11,7 +11,7 @@ class Config
 		$this->sanityCheck($config);
 
 		$this->config = $config;
-		$this->driver = $config['default-driver'];
+		$this->driver = $config['default'];
 		$this->connection = $config['connections'][$this->driver];
 	}
 
