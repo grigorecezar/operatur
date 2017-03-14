@@ -34,12 +34,12 @@ class Loader
 		$this->request = $request;
 		$this->routeToAccess = $route;
 
-		$this->configureQueue();
+		// $this->configureQueue();
 	}
 
 	public function load()
 	{
-		$instance = $this->routeInstance($this->routes, $this->routeToAccess);
+		$instance = $this->routeInstance($this->routes, $this->routeToAccess, $this->request);
 		if (!isset($instance)) {
 			throw new WrongRoute();
 		}
@@ -58,12 +58,12 @@ class Loader
 		}
 	}
 
-	protected function routeInstance($routes, Route $route)
+	protected function routeInstance($routes, Route $route, Request $request)
 	{
 		foreach ($routes as $namespace) {
 			if (class_exists($namespace)) {
 				if ($namespace::NAME === $route->getName()) {
-					return new $namespace($this->queue);
+					return new $namespace((array) $request);
 				}
 			}
 		}
@@ -96,7 +96,7 @@ class Loader
 
 	}
 
-	protected function configureQueue()
+	/* protected function configureQueue()
 	{
 		$config = $this->config;
 
@@ -108,6 +108,5 @@ class Loader
 		$queue->addConnection($config->getConnection());
 
 		$this->queue = $queue;
-	}
-
+	}*/
 }
