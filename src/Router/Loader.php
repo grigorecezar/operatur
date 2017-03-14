@@ -44,11 +44,6 @@ class Loader
 			throw new WrongRoute();
 		}
 
-		if($this->request->getData() === null) {
-			$message = $this->queue->peak($instance::QUEUE_NAME);
-			dd($message);
-		}
-
 		try {
 			$process = $this->routeToAccess->getProcess();
 			$instance->$process($this->request);

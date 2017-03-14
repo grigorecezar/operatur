@@ -26,7 +26,7 @@ class SendDailyUpdatesEmail extends Worker
        'day-of-week' => '*'
    ];
 
-   public function run(Request $request)
+   public function handle(Request $request)
    {
         // $data = $request->getData();
         // $userId = $data['userId'];

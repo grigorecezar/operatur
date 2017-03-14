@@ -9,9 +9,8 @@ class SendWelcomeEmail extends Worker
    use RunOnTrigger;
 
    const NAME = 'welcome-emails';
-   // const QUEUE_NAME = '/welcome-emails';
 
-   public function run(Request $request)
+   public function handle(Request $request)
    {
         $data = $request->getData();
         $userId = $data['userId'];
