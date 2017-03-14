@@ -58,7 +58,7 @@ class Loader
 		foreach ($routes as $namespace) {
 			if (class_exists($namespace)) {
 				if ($namespace::NAME === $route->getName()) {
-					return new $namespace((array) $request);
+					return new $namespace((array) $request->getData());
 				}
 			}
 		}
