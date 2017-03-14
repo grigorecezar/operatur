@@ -15,4 +15,9 @@ class Request
 	{
 		return $this->data;
 	}
+
+	public function __toArray()
+	{
+		return (array) $this->data;
+	}
 }
