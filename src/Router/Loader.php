@@ -21,6 +21,8 @@ class Loader
 		$this->sanityCheckConfig($config);
 		$this->sanityCheckInput($input);
 
+		$input = base64_decode($input);
+
 		$route = new Route($input['worker'], $input['process']);
 		$config = new Config($config);
 		if(isset($input['data'])) {
