@@ -12,14 +12,18 @@ abstract class Worker implements WorkerContract
 	protected $queue = null;
 	protected $operatur = null;
 
-	public function __construct(array $data, Operatur $operatur = null)
+	public function __construct(array $data = null, Operatur $operatur = null)
 	{
-		$this->request = new Request(
-			new Route(static::NAME, 'handle'),
-			$data
-		);
+		if ($data) {
+			$this->request = new Request(
+				new Route(static::NAME, 'handle'),
+				$data
+			);
+		}
 
-		$this->operatur = $operatur;
+		if ($operatur) {
+			$this->operatur = $operatur;
+		}
 	}
 
 	abstract public function handle();
